@@ -5,13 +5,14 @@ import userView from "@/views/UserView.vue"
 import myPageView from "@/views/MyPageView.vue"
 
 // user components
-import userSignIn from "@/components/user/UserSignIn.vue"
-import userSignInComplete from "@/components/user/UserSignInComplete.vue"
-import userSignUp from "@/components/user/UserSignUp.vue"
-import userSignUpComplete from "@/components/user/UserSignUpComplete.vue"
+import userSignin from "@/components/user/UserSignin.vue"
+import userSigninComplete from "@/components/user/UserSigninComplete.vue"
+import userSignup from "@/components/user/UserSignup.vue"
+import userSignupComplete from "@/components/user/UserSignupComplete.vue"
 
 // match components
 import matchList from "@/components/match/MatchList.vue"
+import matchDetail from "@/components/match/matchDetail.vue"
 
 //router
 const router = createRouter({
@@ -23,19 +24,23 @@ const router = createRouter({
       children:[
         {
           path:'',
+          name:'matchList',
           component : matchList,
         },
         {
-          path:'detailmatch',
-          component : userSignInComplete
+          path:'detailmatch/:matchId',
+          name:'detailMatch',
+          component : matchDetail
         },
         {
           path:'signup',
-          component : userSignUp
+          name:'signup',
+          component : userSignup
         },
         {
           path:'completesignup',
-          component : userSignUpComplete
+          name:'completeSignup',
+          component : userSignupComplete
         }
       ]
     },
@@ -45,19 +50,23 @@ const router = createRouter({
       children:[
         {
           path:'',
-          component : userSignIn,
+          name:'userSignin',
+          component : userSignin,
         },
         {
           path:'completesignin',
-          component : userSignInComplete
+          name:'completesignin',
+          component : userSigninComplete
         },
         {
           path:'signup',
-          component : userSignUp
+          name:'signup',
+          component : userSignup
         },
         {
           path:'completesignup',
-          component : userSignUpComplete
+          name:'completesignup',
+          component : userSignupComplete
         }
       ] 
     },

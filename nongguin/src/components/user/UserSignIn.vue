@@ -1,8 +1,8 @@
 <template>
     <div id="main">
         <form @submit.prevent="signIn" >
-            <input type="text" :id="id" placeholder="아이디">
-            <input type="password" :id="password" placeholder="비밀번호">
+            <input type="text" v-model="email" placeholder="email">
+            <input type="password" v-model="password" placeholder="비밀번호">
             <button type="submit">로그인</button>
         </form>
         <a @click="goSignUp">회원가입</a>
@@ -12,11 +12,19 @@
 <script setup>
     import { ref } from 'vue'
     import {useRouter} from 'vue-router'
-    const id = ref('')
+    import { useNongGuInStore } from '@/stores/nongGuIn'
+    const store = useNongGuInStore()
+    const email = ref('')
     const password = ref('')
     const router = useRouter()
+    
+    
     const signIn = ()=>{
-        router.push('/user/completesignin')
+        let user = {
+            userEmail:email.value,
+            userPass:password.value
+        }
+        store.signin(user)
     }
     const goSignUp= ()=>{
         router.push('/user/signup')

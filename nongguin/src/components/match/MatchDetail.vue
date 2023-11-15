@@ -1,35 +1,17 @@
 <template>
     <div>
         <div>
-            
+            <p>{{ $route.params.matchId }}</p>
+            <div>여기에 카카오맵</div> 
         </div>
     </div>
 </template>
 
 <script setup>
-    // import
-    import { ref } from 'vue'
-    import {useRouter} from 'vue-router'
-
-    const router = useRouter()
-    const matchList = ref(
-        {
-
-        }
-    )
-    const date = ref()
-    const attributes = ref([
-    {
-        highlight: true,
-        dates: new Date(),
-    },
-    ]);
-    
-    const detailMatch = ()=>{
-        router.push('')
-    }
+   
 </script>
 
 <style scoped>
-
+    
 </style>
+
