@@ -1,10 +1,10 @@
 <template>
     <div>
         <div>
-            <VCalendar :min-date="new Date()"></VCalendar>
+            <VCalendar v-model="select" @dayclick="show"></VCalendar>
             <div v-for="match in matchList" :key="match.ids">
                 <p>매치</p>
-                <button @click="detailMatch">신청</button>
+                <button @click="detailMatch(id)">신청</button>
             </div>
         </div>
     </div>
@@ -14,7 +14,7 @@
     // import
     import { ref } from 'vue'
     import {useRouter} from 'vue-router'
-
+    
     const router = useRouter()
     const matchList = ref([
         {
@@ -28,12 +28,11 @@
         }
 
     ])
-   
-    
-        
-
-    const detailMatch = ()=>{
-        router.push('')
+    const show =  (day,event)=>{
+        console.log(day)
+    }
+    const detailMatch = (id)=>{
+        router.push({name:'detailMatch',params:{ matchId:2}})
     }
 </script>
 
