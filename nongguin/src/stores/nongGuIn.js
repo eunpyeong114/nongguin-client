@@ -7,6 +7,7 @@ import router from '@/router'
 export const useNongGuInStore = defineStore('counter', () => {
 
   const REST_USER_API = `http://localhost:8080/user`
+  const REST_MATCH_API = `http://localhost:8080/Match/search`
   const signin = function(user){
     axios({
       url: REST_USER_API+"/signin",
@@ -42,9 +43,41 @@ export const useNongGuInStore = defineStore('counter', () => {
 
 
   const matchList  = ref([])
-  const getMatchList = ()=>{
-    
+  const getMatchList= function(condition){
+    axios({
+      url: REST_MATCH_API+"/condition",
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      data: condition
+    })
+      .then((res) => {
+        matchList.value=res.data
+      })
+      .catch((err) => {
+      console.log(err)
+    })
   }
-  return { signin,signup}
+
+  const courtList  = ref([])
+  const getCourtList= function(condition){
+    axios({
+      url: REST_MATCH_API+"/condition",
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      data: condition
+    })
+      .then((res) => {
+        matchList.value=res.data
+      })
+      .catch((err) => {
+      console.log(err)
+    })
+  }
+
+  return { signin,signup,matchList,getMatchList,courtList,getCourtList}
   
 })
