@@ -150,7 +150,21 @@ export const useNongGuInStore = defineStore('nongGuIn', () => {
       console.log(err)
     })
   }
+  const myMatchList = ref([])
+  const getMyMatchList =  function(id){
+    axios({
+      url: REST_MATCH_API+"/search/user/"+id,
+      method: 'GET'
+    })
+    .then((res)=>{
+      console.log("hi"+res.data)
+      myMatchList.value=res.data
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
 
-  return { signin,signup,matchList,getMatchList,getMatch,match,condition,user,getUser,updateUser}
+  return { signin,signup,matchList,getMatchList,getMatch,match,condition,user,getUser,updateUser,myMatchList,getMyMatchList}
   
 })
