@@ -61,7 +61,8 @@ export const useNongGuInStore = defineStore('nongGuIn', () => {
       url: REST_MATCH_API+"/condition",
       method: 'POST',
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "access-token": sessionStorage.getItem("access-token")
       },
       data: condition
     })
