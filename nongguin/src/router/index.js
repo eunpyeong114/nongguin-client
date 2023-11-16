@@ -14,6 +14,12 @@ import userSignupComplete from "@/components/user/UserSignupComplete.vue"
 import matchList from "@/components/match/MatchList.vue"
 import matchDetail from "@/components/match/matchDetail.vue"
 
+// mypage components
+import mypage from "@/components/mypage/mypage.vue"
+import mypageUpdate from "@/components/mypage/mypageUpdate.vue"
+import mypageFriend from "@/components/mypage/mypageFriend.vue"
+import myMatch from "@/components/mypage/myMatch.vue"
+
 //router
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -31,16 +37,6 @@ const router = createRouter({
           path:'detailmatch/:matchId',
           name:'detailMatch',
           component : matchDetail
-        },
-        {
-          path:'signup',
-          name:'signup',
-          component : userSignup
-        },
-        {
-          path:'completesignup',
-          name:'completeSignup',
-          component : userSignupComplete
         }
       ]
     },
@@ -73,7 +69,28 @@ const router = createRouter({
     {
       path: '/mypage',
       name: 'mypage',
-      component: myPageView,
+      children:[
+        {
+          path:'/mypage/:id',
+          name:'mypage',
+          component : mypage,
+        },
+        {
+          path:'/update/:id',
+          name:'mypageUpdate',
+          component : mypageUpdate,
+        },
+        {
+          path:'/friend/:id',
+          name:'mypageFriend',
+          component : mypageFriend,
+        },
+        {
+          path:'/match/:id',
+          name:'mypageMatch',
+          component : myMatch,
+        }
+      ] 
     }
   ]
 })
