@@ -8,6 +8,7 @@ export const useNongGuInStore = defineStore('nongGuIn', () => {
 
   const REST_USER_API = `http://localhost:8080/user`
   const REST_MATCH_API = `http://localhost:8080/Match/search`
+  const REST_FRIEND_API = `http://localhost:8080/friend`
   const loginUser = ref('')
   //로그인
   const signin = function(user){
@@ -160,18 +161,64 @@ export const useNongGuInStore = defineStore('nongGuIn', () => {
   const myMatchList = ref([])
   const getMyMatchList =  function(id){
     axios({
-      url: REST_MATCH_API+"/search/user/"+id,
+      url: REST_MATCH_API+"/user/"+id,
       method: 'GET'
     })
     .then((res)=>{
-      console.log("hi"+res.data)
       myMatchList.value=res.data
+      myMatchList.value.forEach((match) => {
+        if (match.matchGender == 'm') {
+          match.matchGender = '남성'
+        } else if (match.matchGender == 'fm') {
+          match.matchGender= '여성'
+        } else if (match.matchGender == "both") {
+          match.matchGender= '성별무관'
+        }
+        let date = new Date(match.matchDate);
+
+        date.setHours(date.getHours() -9);
+
+        let year = date.getFullYear();
+        let month = (date.getMonth() + 1).toString().padStart(2, '0');
+        let day = date.getDate().toString().padStart(2, '0');
+        let hours = date.getHours().toString().padStart(2, '0');
+        let minutes = date.getMinutes().toString().padStart(2, '0');
+
+        var formattedDate = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes;
+        match.matchDate = formattedDate;
+      })
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
+  const friendList = ref([])
+  const getFriendList =  function(id){
+    axios({
+      url: REST_FRIEND_API+"/list/"+id,
+      method: 'GET'
+    })
+    .then((res)=>{
+      friendList.value=res.data
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
+  const friendReqList = ref([])
+  const getFriendReqList =  function(id){
+    axios({
+      url: REST_FRIEND_API+"/request/list/"+id,
+      method: 'GET'
+    })
+    .then((res)=>{
+      friendReqList.value=res.data
     })
     .catch((err) => {
       console.log(err)
     })
   }
 
-  return { signin,signup,matchList,getMatchList,getMatch,match,condition,user,getUser,updateUser,myMatchList,getMyMatchList}
+  return { signin,signup,matchList,getMatchList,getMatch,match,condition,user,getUser,updateUser,myMatchList,getMyMatchList,friendList,getFriendList,friendReqList,getFriendReqList}
   
 })
