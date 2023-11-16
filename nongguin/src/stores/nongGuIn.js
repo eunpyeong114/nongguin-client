@@ -8,6 +8,7 @@ export const useNongGuInStore = defineStore('nongGuIn', () => {
 
   const REST_USER_API = `http://localhost:8080/user`
   const REST_MATCH_API = `http://localhost:8080/Match/search`
+  const loginUser = ref('')
   //로그인
   const signin = function(user){
     axios({
@@ -19,7 +20,12 @@ export const useNongGuInStore = defineStore('nongGuIn', () => {
       data: user
     })
       .then((res) => {
-        console.log(res.data)
+        sessionStorage.setItem("access-token",res.data["access-token"])
+        const token = res.data["access-token"].split(".")
+        let email = JSON.parse(atob(token[1]));
+        email = email['userEmail']
+        loginUser.value = email;
+
         router.push({ name: 'matchList'})
       })
       .catch((err) => {
