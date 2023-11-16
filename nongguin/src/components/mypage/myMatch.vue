@@ -2,7 +2,7 @@
     <div>
         <div v-for="match in store.myMatchList" :key="match.id">
                매치아이디 {{match.matchId}}매치 날짜{{ match.matchDate }} {{ match.court }} {{ match.matchGender }} 최대 인원{{match.courtCapacity  }} 레벨{{ match.matchLevel }}
-        <button @click="detailMatch(match.matchId)">신청</button>
+        <button @click="cancleMatch(match.matchId)">취소</button>
         </div>
     </div>
 </template>
@@ -14,10 +14,12 @@
 
     const store = useNongGuInStore()
     const router = useRouter()
-    const route =useRoute
-    
+    const route =useRoute()
+    const cancleMatch=function(){
+
+    }
     onMounted(async () => {
-        await store.getMyMatchList(1)
+        await store.getMyMatchList(route.params.id)
     })
 </script>
 

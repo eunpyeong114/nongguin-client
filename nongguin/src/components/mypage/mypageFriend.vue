@@ -1,11 +1,34 @@
 <template>
+    <div>친구페이지</div>
     <div>
-        친구페이지
+        <h1>친구 신청 목록</h1>
+        <div v-for="friend in store.friendReqList">
+            <div>{{ friend.userName }}</div>
+            <button>수락</button>
+            <button>거절</button>
+        </div>
+        <h1>내 친구</h1>
+        <div v-for="friend in store.friendList">
+            <div>{{ friend.userName }}</div>
+            <button>친구가 신청한 매치 보기</button>
+        </div>
     </div>
 </template>
 
 <script setup>
+    import { watch,ref, onMounted } from 'vue'
+    import { useRouter ,useRoute} from 'vue-router'
+    import { useNongGuInStore } from '@/stores/nongGuIn'
 
+    const store = useNongGuInStore()
+    const router = useRouter()
+    const route =useRoute()
+    
+    onMounted(async () => {
+        await store.getFriendList(route.params.id)
+        await store.getFriendReqList(route.params.id)
+            
+    })
 </script>
 
 <style scoped>
