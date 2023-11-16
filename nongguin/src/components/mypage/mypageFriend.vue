@@ -1,6 +1,11 @@
 <template>
     <div>친구페이지</div>
-    <div>
+
+
+    <div>  
+        <h1>친구 신청하기</h1>
+        <input v-model="reqEmail" :placeholder="`신청할 친구의 이메일`">
+        <button>신청</button>
         <h1>친구 신청 목록</h1>
         <div v-for="friend in store.friendReqList">
             <div>{{ friend.userName }}</div>
@@ -19,7 +24,7 @@
     import { watch,ref, onMounted } from 'vue'
     import { useRouter ,useRoute} from 'vue-router'
     import { useNongGuInStore } from '@/stores/nongGuIn'
-
+    const reqEmail = ref('')
     const store = useNongGuInStore()
     const router = useRouter()
     const route =useRoute()
